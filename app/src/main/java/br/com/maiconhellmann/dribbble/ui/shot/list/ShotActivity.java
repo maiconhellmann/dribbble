@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.Collections;
@@ -20,6 +22,7 @@ import br.com.maiconhellmann.dribbble.ui.shot.detail.DetailTabActivity;
 import br.com.maiconhellmann.dribbble.util.DialogFactory;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ShotActivity extends BaseActivity implements ShotView, ShotAdapter.OnItemClickListener {
 
@@ -33,20 +36,22 @@ public class ShotActivity extends BaseActivity implements ShotView, ShotAdapter.
 
     @BindView(R.id.toolbar) Toolbar toolbar;
 
+    @BindView(R.id.btnLoadMore) Button btnLoadMore;
+
     private ProgressDialog progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityComponent().inject(this);
-        setContentView(R.layout.activity_repository);
+        setContentView(R.layout.activity_shot_list);
         ButterKnife.bind(this);
 
         mRepositoryAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mRepositoryAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mMainPresenter.attachView(this);
-        mMainPresenter.loadRepositories();
+        mMainPresenter.loadShots();
 
         setSupportActionBar(toolbar);
     }
@@ -60,8 +65,7 @@ public class ShotActivity extends BaseActivity implements ShotView, ShotAdapter.
 
     @Override
     public void showShots(List<Shot> shotList) {
-        mRepositoryAdapter.setRepositories(shotList);
-        mRepositoryAdapter.notifyDataSetChanged();
+        mRepositoryAdapter.addRepositories(shotList);
     }
 
     @Override
@@ -72,12 +76,14 @@ public class ShotActivity extends BaseActivity implements ShotView, ShotAdapter.
 
     @Override
     public void showProgressBar() {
+        btnLoadMore.setVisibility(View.GONE);
         progressBar = DialogFactory.createProgressDialog(this, R.string.loading);
         progressBar.show();
     }
 
     @Override
     public void hideProgressBar() {
+        btnLoadMore.setVisibility(View.VISIBLE);
         if(progressBar != null){
             progressBar.dismiss();
             progressBar = null;
@@ -95,11 +101,19 @@ public class ShotActivity extends BaseActivity implements ShotView, ShotAdapter.
     public void onItemClick(Shot shot) {
         try {
             Intent intent = new Intent(this, DetailTabActivity.class);
-//            intent.putExtra(DetailTabActivity.EXTRA_SHOT, shot);
-//            intent.putExtra(DetailTabActivity.EXTRA_OWNER, shot.getOwner().getLogin());
+            intent.putExtra(DetailTabActivity.EXTRA_SHOT, shot);
 
             startActivity(intent);
         } catch (Exception e) {
+            DialogFactory.createGenericErrorDialog(this, e).show();
+        }
+    }
+
+    @OnClick(R.id.btnLoadMore)
+    void onClickLoadMore(){
+        try{
+            mMainPresenter.loadShots();
+        }catch (Exception e){
             DialogFactory.createGenericErrorDialog(this, e).show();
         }
     }

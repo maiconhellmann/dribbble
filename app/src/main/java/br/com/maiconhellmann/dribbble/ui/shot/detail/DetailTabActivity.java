@@ -56,11 +56,11 @@ public class DetailTabActivity extends BaseActivity {
 
             pageTitleList = context.getResources().getStringArray(R.array.array_tab_detail);
 
-            Fragment fragment = new UserFragment();
+            Fragment fragment = new ShotDetailFragment();
             fragment.setArguments(getIntent().getExtras());
             fragmentList.add(fragment);
 
-            fragment = new ShotDetailFragment();
+            fragment = new UserFragment();
             fragment.setArguments(getIntent().getExtras());
             fragmentList.add(fragment);
         }

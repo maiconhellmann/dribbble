@@ -2,27 +2,41 @@ package br.com.maiconhellmann.dribbble.ui.shot.detail;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import javax.inject.Inject;
 
 import br.com.maiconhellmann.dribbble.R;
 import br.com.maiconhellmann.dribbble.data.model.Shot;
 import br.com.maiconhellmann.dribbble.ui.base.BaseFragment;
+import br.com.maiconhellmann.dribbble.util.DialogFactory;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class ShotDetailFragment extends BaseFragment implements DetailView {
 
+    @BindView(R.id.imageView)
+    ImageView imageView;
+
+    @BindView(R.id.text_title)
+    TextView textTitle;
+
+    @BindView(R.id.text_views)
+    TextView textViews;
+
+    @BindView(R.id.text_description)
+    TextView textDescription;
+
     @Inject
     DetailPresenter presenter;
-
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
 
     private Unbinder unbinder;
     private Shot shot;
@@ -41,7 +55,7 @@ public class ShotDetailFragment extends BaseFragment implements DetailView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_pull, container, false);
+        return inflater.inflate(R.layout.fragment_shot_detail, container, false);
     }
 
     @Override
@@ -55,6 +69,20 @@ public class ShotDetailFragment extends BaseFragment implements DetailView {
     }
 
     private void configureUI() {
+        try{
+            int count = shot.getViewsCount() != null ? shot.getViewsCount() : 0;
+            textViews.setText(getString(R.string.views_count, count));
+            textTitle.setText(shot.getTitle());
+
+            Glide.with(getContext())
+                    .load(shot.getImages().getNormal())
+                    .asBitmap()
+                    .placeholder(R.drawable.placeholder)
+                    .into(imageView);
+            textDescription.setText(Html.fromHtml(shot.getDescription()));
+        }catch (Exception e){
+            DialogFactory.createGenericErrorDialog(getContext(), e).show();
+        }
     }
 
     public void onDestroyView() {

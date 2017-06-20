@@ -3,12 +3,28 @@ package br.com.maiconhellmann.dribbble.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User implements Parcelable {
     private Integer id;
     private String name;
     private String username;
+
+    @SerializedName("html_url")
     private String htmlUrl;
+
+    @SerializedName("avatar_url")
     private String avatarUrl;
+
+    private String bio;
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 
     public Integer getId() {
         return id;
@@ -51,6 +67,10 @@ public class User implements Parcelable {
     }
 
 
+    public User() {
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -63,9 +83,7 @@ public class User implements Parcelable {
         dest.writeString(this.username);
         dest.writeString(this.htmlUrl);
         dest.writeString(this.avatarUrl);
-    }
-
-    public User() {
+        dest.writeString(this.bio);
     }
 
     protected User(Parcel in) {
@@ -74,9 +92,10 @@ public class User implements Parcelable {
         this.username = in.readString();
         this.htmlUrl = in.readString();
         this.avatarUrl = in.readString();
+        this.bio = in.readString();
     }
 
-    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+    public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
         public User createFromParcel(Parcel source) {
             return new User(source);

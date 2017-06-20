@@ -21,6 +21,8 @@ public class ShotPresenter extends BasePresenter<ShotView> {
     private final DataManager mDataManager;
     private Subscription mSubscription;
 
+    private int page = 1;
+
     @Inject
     public ShotPresenter(DataManager dataManager) {
         mDataManager = dataManager;
@@ -37,12 +39,12 @@ public class ShotPresenter extends BasePresenter<ShotView> {
         if (mSubscription != null) mSubscription.unsubscribe();
     }
 
-    public void loadRepositories() {
+    public void loadShots() {
         getMvpView().showProgressBar();
 
         checkViewAttached();
         RxUtil.unsubscribe(mSubscription);
-        mSubscription = mDataManager.getShots(1)
+        mSubscription = mDataManager.getShots(page+1)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<List<Shot>>() {

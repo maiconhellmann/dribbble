@@ -26,13 +26,15 @@
             android:layout_gravity="bottom">
             <TextView
                 android:id="@+id/text_title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_body"
                 tools:text="Title"
                 android:textColor="#FFFFFF"
                 android:padding="10dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="100dp"
+                android:singleLine="true"/>
 
             <TextView
                 android:id="@+id/text_views"

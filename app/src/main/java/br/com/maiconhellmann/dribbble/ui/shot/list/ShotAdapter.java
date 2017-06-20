@@ -25,6 +25,11 @@ public class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ShotViewHolder
 
     private OnItemClickListener onItemClickListener;
 
+    public void addRepositories(List<Shot> shotList) {
+        mShotList.addAll(shotList);
+        notifyDataSetChanged();
+    }
+
     public interface OnItemClickListener{
         void onItemClick(Shot shot);
     }
@@ -36,12 +41,13 @@ public class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ShotViewHolder
 
     public void setRepositories(List<Shot> shots) {
         mShotList = shots;
+        notifyDataSetChanged();
     }
 
     @Override
     public ShotViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_repo, parent, false);
+                .inflate(R.layout.row_shot, parent, false);
         return new ShotViewHolder(itemView);
     }
 

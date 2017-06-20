@@ -11,6 +11,7 @@
     <string name="empty_shot">There aren\'t any shots</string>
     <string name="loading">Loading…</string>
     <string name="error_loading">There was a problem loading the shots</string>
+    <string name="load_more">More</string>
 
     <string-array name="array_tab_detail">
         <item>Shot</item>

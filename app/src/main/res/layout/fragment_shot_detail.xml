@@ -1,15 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:listitem="@layout/fragment_pull_row" />
+        android:layout_margin="4dp"
+        card_view:cardCornerRadius="2dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:src="@drawable/placeholder"
+                android:adjustViewBounds="true"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black_transparent"
+                android:layout_gravity="bottom">
+                <TextView
+                    android:id="@+id/text_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_body"
+                    tools:text="Title"
+                    android:textColor="#FFFFFF"
+                    android:padding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="100dp"
+                    android:singleLine="true"/>
+
+                <TextView
+                    android:id="@+id/text_views"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_body"
+                    tools:text="45"
+                    android:drawableLeft="@drawable/ic_remove_red_eye_white_24dp"
+                    android:drawablePadding="15dp"
+                    android:layout_gravity="right"
+                    android:textColor="#FFFFFF"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_marginRight="10dp"/>
+            </FrameLayout>
+
+        </FrameLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/text_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Bio"
+        android:layout_margin="10dp"
+        android:textColorLink="#06F"/>
 </LinearLayout>
