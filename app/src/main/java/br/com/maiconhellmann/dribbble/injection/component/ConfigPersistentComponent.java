@@ -1,7 +1,7 @@
 package br.com.maiconhellmann.dribbble.injection.component;
 
-import br.com.maiconhellmann.dribbble.ui.repository.detail.PullListFragment;
-import br.com.maiconhellmann.dribbble.ui.repository.detail.RepositoryDetailFragment;
+import br.com.maiconhellmann.dribbble.ui.shot.detail.ShotDetailFragment;
+import br.com.maiconhellmann.dribbble.ui.shot.detail.UserFragment;
 import dagger.Component;
 import br.com.maiconhellmann.dribbble.injection.ConfigPersistent;
 import br.com.maiconhellmann.dribbble.injection.module.ActivityModule;
@@ -20,7 +20,7 @@ public interface ConfigPersistentComponent {
 
     ActivityComponent activityComponent(ActivityModule activityModule);
 
-    void inject(RepositoryDetailFragment repositoryDetailFragment);
+    void inject(UserFragment userFragment);
 
-    void inject(PullListFragment pullListFragment);
+    void inject(ShotDetailFragment shotDetailFragment);
 }

@@ -10,10 +10,8 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import br.com.maiconhellmann.dribbble.data.model.Pull;
-import br.com.maiconhellmann.dribbble.data.model.Repository;
 import br.com.maiconhellmann.dribbble.data.model.Shot;
-import br.com.maiconhellmann.dribbble.data.remote.parse.RepositoryParser;
+import br.com.maiconhellmann.dribbble.data.remote.parse.ShotParser;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -22,26 +20,23 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 public interface DribbbleService {
 
     String ENDPOINT = "https://api.dribbble.com/v1/";
 
-    @GET("shots?sort=views&page={page}&per_page=10")
-    Observable<List<Shot>> getShots(@Path("page") Integer page);
-
-    @GET("/repos/{owner}/{repository}/pulls")
-    Observable<List<Pull>> getPulls(@Path("owner") String owner,@Path("repository") String repository);
+    @GET("shots?sort=views&per_page=10")
+    Observable<List<Shot>> getShots(@Query("page") String page);
 
     class Creator {
         public static DribbbleService newDribbbleService() {
-            Type listType = new TypeToken<List<Repository>>(){}.getType();
-
+//            Type listType = new TypeToken<List<Shot>>(){}.getType();
+//
             Gson gson = new GsonBuilder()
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                    .registerTypeAdapter(listType, new RepositoryParser())
+//                    .registerTypeAdapter(listType, new ShotParser())
                     .create();
 
             OkHttpClient.Builder builder = new OkHttpClient().newBuilder();

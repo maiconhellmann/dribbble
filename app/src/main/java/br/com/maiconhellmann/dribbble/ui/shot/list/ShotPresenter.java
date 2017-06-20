@@ -1,4 +1,4 @@
-package br.com.maiconhellmann.dribbble.ui.repository.list;
+package br.com.maiconhellmann.dribbble.ui.shot.list;
 
 import java.util.List;
 
@@ -38,6 +38,8 @@ public class ShotPresenter extends BasePresenter<ShotView> {
     }
 
     public void loadRepositories() {
+        getMvpView().showProgressBar();
+
         checkViewAttached();
         RxUtil.unsubscribe(mSubscription);
         mSubscription = mDataManager.getShots(1)
@@ -46,16 +48,21 @@ public class ShotPresenter extends BasePresenter<ShotView> {
                 .subscribe(new Subscriber<List<Shot>>() {
                     @Override
                     public void onCompleted() {
+                        getMvpView().hideProgressBar();
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        getMvpView().hideProgressBar();
+
                         Timber.e(e, "There was an error loading the repositorys.");
                         getMvpView().showError();
                     }
 
                     @Override
                     public void onNext(List<Shot> shotList) {
+                        getMvpView().hideProgressBar();
+
                         if (shotList.isEmpty()) {
                             getMvpView().showShotsEmpty();
                         } else {

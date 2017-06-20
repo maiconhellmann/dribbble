@@ -1,5 +1,6 @@
-package br.com.maiconhellmann.dribbble.ui.repository.list;
+package br.com.maiconhellmann.dribbble.ui.shot.list;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,10 +14,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.com.maiconhellmann.dribbble.R;
-import br.com.maiconhellmann.dribbble.data.model.Repository;
 import br.com.maiconhellmann.dribbble.data.model.Shot;
 import br.com.maiconhellmann.dribbble.ui.base.BaseActivity;
-import br.com.maiconhellmann.dribbble.ui.repository.detail.RepositoryTabActivity;
+import br.com.maiconhellmann.dribbble.ui.shot.detail.DetailTabActivity;
 import br.com.maiconhellmann.dribbble.util.DialogFactory;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +32,8 @@ public class ShotActivity extends BaseActivity implements ShotView, ShotAdapter.
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
+
+    private ProgressDialog progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,23 +66,37 @@ public class ShotActivity extends BaseActivity implements ShotView, ShotAdapter.
 
     @Override
     public void showError() {
-        DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_repositories))
+        DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading))
                 .show();
+    }
+
+    @Override
+    public void showProgressBar() {
+        progressBar = DialogFactory.createProgressDialog(this, R.string.loading);
+        progressBar.show();
+    }
+
+    @Override
+    public void hideProgressBar() {
+        if(progressBar != null){
+            progressBar.dismiss();
+            progressBar = null;
+        }
     }
 
     @Override
     public void showShotsEmpty() {
         mRepositoryAdapter.setRepositories(Collections.<Shot>emptyList());
         mRepositoryAdapter.notifyDataSetChanged();
-        Toast.makeText(this, R.string.empty_repositories, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.empty_shot, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onItemClick(Shot shot) {
         try {
-            Intent intent = new Intent(this, RepositoryTabActivity.class);
-//            intent.putExtra(RepositoryTabActivity.EXTRA_REPOSITORY, shot);
-//            intent.putExtra(RepositoryTabActivity.EXTRA_OWNER, shot.getOwner().getLogin());
+            Intent intent = new Intent(this, DetailTabActivity.class);
+//            intent.putExtra(DetailTabActivity.EXTRA_SHOT, shot);
+//            intent.putExtra(DetailTabActivity.EXTRA_OWNER, shot.getOwner().getLogin());
 
             startActivity(intent);
         } catch (Exception e) {

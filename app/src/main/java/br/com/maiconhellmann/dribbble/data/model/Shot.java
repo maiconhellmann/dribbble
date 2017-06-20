@@ -1,10 +1,9 @@
 package br.com.maiconhellmann.dribbble.data.model;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Shot {
+public class Shot implements Parcelable {
 
     private Integer id;
     private String title;
@@ -14,22 +13,11 @@ public class Shot {
     private Integer viewsCount;
     private Integer likesCount;
     private Integer commentsCount;
-    private Integer attachmentsCount;
-    private Integer reboundsCount;
-    private Integer bucketsCount;
-    private String createdAt;
-    private String updatedAt;
-    private String htmlUrl;
-    private String attachmentsUrl;
-    private String bucketsUrl;
-    private String commentsUrl;
-    private String likesUrl;
-    private String projectsUrl;
-    private String reboundsUrl;
-    private Boolean animated;
-    private List<String> tags = null;
-    private Object team;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Image images;
+    private User user;
+
+    public Shot() {
+    }
 
     public Integer getId() {
         return id;
@@ -95,132 +83,63 @@ public class Shot {
         this.commentsCount = commentsCount;
     }
 
-    public Integer getAttachmentsCount() {
-        return attachmentsCount;
+    public Image getImages() {
+        return images;
     }
 
-    public void setAttachmentsCount(Integer attachmentsCount) {
-        this.attachmentsCount = attachmentsCount;
+    public void setImages(Image images) {
+        this.images = images;
     }
 
-    public Integer getReboundsCount() {
-        return reboundsCount;
+    public User getUser() {
+        return user;
     }
 
-    public void setReboundsCount(Integer reboundsCount) {
-        this.reboundsCount = reboundsCount;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Integer getBucketsCount() {
-        return bucketsCount;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setBucketsCount(Integer bucketsCount) {
-        this.bucketsCount = bucketsCount;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.description);
+        dest.writeValue(this.width);
+        dest.writeValue(this.height);
+        dest.writeValue(this.viewsCount);
+        dest.writeValue(this.likesCount);
+        dest.writeValue(this.commentsCount);
+        dest.writeParcelable(this.images, flags);
+        dest.writeParcelable(this.user, flags);
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    protected Shot(Parcel in) {
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.title = in.readString();
+        this.description = in.readString();
+        this.width = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.height = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.viewsCount = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.likesCount = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.commentsCount = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.images = in.readParcelable(Image.class.getClassLoader());
+        this.user = in.readParcelable(User.class.getClassLoader());
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
+    public static final Creator<Shot> CREATOR = new Creator<Shot>() {
+        @Override
+        public Shot createFromParcel(Parcel source) {
+            return new Shot(source);
+        }
 
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getHtmlUrl() {
-        return htmlUrl;
-    }
-
-    public void setHtmlUrl(String htmlUrl) {
-        this.htmlUrl = htmlUrl;
-    }
-
-    public String getAttachmentsUrl() {
-        return attachmentsUrl;
-    }
-
-    public void setAttachmentsUrl(String attachmentsUrl) {
-        this.attachmentsUrl = attachmentsUrl;
-    }
-
-    public String getBucketsUrl() {
-        return bucketsUrl;
-    }
-
-    public void setBucketsUrl(String bucketsUrl) {
-        this.bucketsUrl = bucketsUrl;
-    }
-
-    public String getCommentsUrl() {
-        return commentsUrl;
-    }
-
-    public void setCommentsUrl(String commentsUrl) {
-        this.commentsUrl = commentsUrl;
-    }
-
-    public String getLikesUrl() {
-        return likesUrl;
-    }
-
-    public void setLikesUrl(String likesUrl) {
-        this.likesUrl = likesUrl;
-    }
-
-    public String getProjectsUrl() {
-        return projectsUrl;
-    }
-
-    public void setProjectsUrl(String projectsUrl) {
-        this.projectsUrl = projectsUrl;
-    }
-
-    public String getReboundsUrl() {
-        return reboundsUrl;
-    }
-
-    public void setReboundsUrl(String reboundsUrl) {
-        this.reboundsUrl = reboundsUrl;
-    }
-
-    public Boolean getAnimated() {
-        return animated;
-    }
-
-    public void setAnimated(Boolean animated) {
-        this.animated = animated;
-    }
-
-    public List<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
-
-    public Object getTeam() {
-        return team;
-    }
-
-    public void setTeam(Object team) {
-        this.team = team;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
+        @Override
+        public Shot[] newArray(int size) {
+            return new Shot[size];
+        }
+    };
 }

@@ -7,6 +7,4 @@ package br.com.maiconhellmann.dribbble.ui.base;
  * that then usually will be implemented by an Activity or Fragment.
  */
 public interface MvpView {
-
-
 }

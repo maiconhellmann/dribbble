@@ -1,10 +1,13 @@
-package br.com.maiconhellmann.dribbble.ui.repository.list;
+package br.com.maiconhellmann.dribbble.ui.shot.list;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +48,16 @@ public class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ShotViewHolder
     @Override
     public void onBindViewHolder(final ShotViewHolder holder, int position) {
         final Shot shot = mShotList.get(position);
-        holder.nameTextView.setText(shot.getTitle());
-        holder.emailTextView.setText(shot.getDescription());
+        holder.titleTextView.setText(shot.getTitle());
 
+        Integer count = shot.getViewsCount() != null ? shot.getViewsCount() : 0;
+        holder.viewsTextView.setText(holder.viewsTextView.getContext().getString(R.string.views_count,count));
+
+        Glide.with(holder.imageView.getContext())
+                .load(shot.getImages().getNormal())
+                .asBitmap()
+                .placeholder(R.drawable.placeholder)
+                .into(holder.imageView);
 
         if(onItemClickListener != null) holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,9 +74,9 @@ public class ShotAdapter extends RecyclerView.Adapter<ShotAdapter.ShotViewHolder
 
     class ShotViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.image_view_type) View hexColorView;
-        @BindView(R.id.text_name) TextView nameTextView;
-        @BindView(R.id.text_owner) TextView emailTextView;
+        @BindView(R.id.imageView) ImageView imageView;
+        @BindView(R.id.text_title) TextView titleTextView;
+        @BindView(R.id.text_views) TextView viewsTextView;
 
         public ShotViewHolder(View itemView) {
             super(itemView);

@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="br.com.maiconhellmann.dribbble.ui.repository.list.ShotActivity"
+            android:name="br.com.maiconhellmann.dribbble.ui.shot.list.ShotActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Light">
             <intent-filter>
@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name="br.com.maiconhellmann.dribbble.ui.repository.detail.RepositoryTabActivity"
+            android:name="br.com.maiconhellmann.dribbble.ui.shot.detail.DetailTabActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Light"/>
     </application>

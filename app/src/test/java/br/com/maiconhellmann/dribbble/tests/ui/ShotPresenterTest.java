@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.maiconhellmann.dribbble.data.DataManager;
-import br.com.maiconhellmann.dribbble.data.model.Repository;
-import br.com.maiconhellmann.dribbble.ui.repository.list.ShotView;
-import br.com.maiconhellmann.dribbble.ui.repository.list.ShotPresenter;
+import br.com.maiconhellmann.dribbble.data.model.Shot;
+import br.com.maiconhellmann.dribbble.ui.shot.list.ShotPresenter;
+import br.com.maiconhellmann.dribbble.ui.shot.list.ShotView;
 import rx.Observable;
 import rx.Scheduler;
 import rx.android.plugins.RxAndroidPlugins;
@@ -46,19 +46,19 @@ public class RepositoryPresenterTest {
     public void shouldShowRepositoryList(){
         presenter.loadRepositories();
 
-        Repository repository = new Repository();
+        Shot repository = new Shot();
         repository.setId(1);
-        repository.setName("Repository 1");
+        repository.setTitle("Title 1");
         repository.setDescription("A sample project");
-        repository.setFullName("Repository 1");
-        List<Repository> repositories = new ArrayList<>();
+
+        List<Shot> repositories = new ArrayList<>();
         repositories.add(repository);
 
         final Observable repObs = Observable.from(repositories);
 
-        Mockito.when(dataManager.getRepositories()).then(new Answer<Observable<List<Repository>>>() {
+        Mockito.when(dataManager.getShots(1)).then(new Answer<Observable<List<Shot>>>() {
             @Override
-            public Observable<List<Repository>> answer(InvocationOnMock invocation) throws Throwable {
+            public Observable<List<Shot>> answer(InvocationOnMock invocation) throws Throwable {
                 return repObs;
             }
         });

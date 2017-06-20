@@ -1,15 +1,19 @@
 <resources>
-    <string name="app_name">Hithub List</string>
+    <string name="app_name">MHdribbble</string>
 
     <string name="action_settings">Settings</string>
 
     <string name="dialog_action_ok">OK</string>
     <string name="dialog_action_cancel">Cancel</string>
     <string name="dialog_error_title">Sorry</string>
+    <string name="views_count">%1$d</string>
 
-    <string name="empty_repositories">There aren\'t any repositories</string>
-    <string name="error_loading_repositories">There was a problem loading the repositories</string>
+    <string name="empty_shot">There aren\'t any shots</string>
+    <string name="loading">Loading…</string>
+    <string name="error_loading">There was a problem loading the shots</string>
 
-    <string name="infos">Informações</string>
-    <string name="pulls">Pulls</string>
+    <string-array name="array_tab_detail">
+        <item>Shot</item>
+        <item>User</item>
+    </string-array>
 </resources>

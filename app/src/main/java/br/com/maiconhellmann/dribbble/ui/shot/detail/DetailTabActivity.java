@@ -1,4 +1,4 @@
-package br.com.maiconhellmann.dribbble.ui.repository.detail;
+package br.com.maiconhellmann.dribbble.ui.shot.detail;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -15,21 +15,20 @@ import br.com.maiconhellmann.dribbble.ui.base.BaseActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RepositoryTabActivity extends BaseActivity {
-    public static final String EXTRA_OWNER = "owner";
-    public static final String EXTRA_REPOSITORY = "repository";
+public class DetailTabActivity extends BaseActivity {
+    public static final String EXTRA_SHOT = "shot";
 
     @BindView(R.id.vp_details) ViewPager viewPager;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
 
-    @BindView(R.id.tab_repository) TabLayout tabLayout;
+    @BindView(R.id.tab_shot_detail) TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityComponent().inject(this);
-        setContentView(R.layout.activity_repository_tabs);
+        setContentView(R.layout.activity_shot_detail_tabs);
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
@@ -45,25 +44,23 @@ public class RepositoryTabActivity extends BaseActivity {
 
     private class RepositoryFragmentPagerAdapter extends FragmentPagerAdapter {
 
-        private final RepositoryTabActivity context;
+        private final DetailTabActivity context;
         private final ArrayList<Fragment> fragmentList;
         private String[] pageTitleList;
 
-        RepositoryFragmentPagerAdapter(FragmentManager supportFragmentManager, RepositoryTabActivity repositoryDetailActivity) {
+        RepositoryFragmentPagerAdapter(FragmentManager supportFragmentManager, DetailTabActivity repositoryDetailActivity) {
             super(supportFragmentManager);
             this.context = repositoryDetailActivity;
 
             this.fragmentList = new ArrayList<>(2);
 
-            pageTitleList = new String[]{
-                    context.getString(R.string.infos),
-                    context.getString(R.string.pulls)
-            };
-            Fragment fragment = new RepositoryDetailFragment();
+            pageTitleList = context.getResources().getStringArray(R.array.array_tab_detail);
+
+            Fragment fragment = new UserFragment();
             fragment.setArguments(getIntent().getExtras());
             fragmentList.add(fragment);
 
-            fragment = new PullListFragment();
+            fragment = new ShotDetailFragment();
             fragment.setArguments(getIntent().getExtras());
             fragmentList.add(fragment);
         }

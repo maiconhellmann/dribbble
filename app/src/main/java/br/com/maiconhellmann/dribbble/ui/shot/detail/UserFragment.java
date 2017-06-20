@@ -1,4 +1,4 @@
-package br.com.maiconhellmann.dribbble.ui.repository.detail;
+package br.com.maiconhellmann.dribbble.ui.shot.detail;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import br.com.maiconhellmann.dribbble.R;
-import br.com.maiconhellmann.dribbble.data.model.Repository;
+import br.com.maiconhellmann.dribbble.data.model.Shot;
 import br.com.maiconhellmann.dribbble.ui.base.BaseFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class RepositoryDetailFragment extends BaseFragment {
+public class UserFragment extends BaseFragment {
 
     @BindView(R.id.tv_repo_name)
     TextView tvRepoName;
@@ -24,7 +24,7 @@ public class RepositoryDetailFragment extends BaseFragment {
 
     private Unbinder unbinder;
     private String repositoryOwner;
-    private Repository repository;
+    private Shot shot;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,7 @@ public class RepositoryDetailFragment extends BaseFragment {
         getConfigPersistentComponent().inject(this);
 
         if(getArguments() != null) {
-            repository = getArguments().getParcelable(RepositoryTabActivity.EXTRA_REPOSITORY);
-            repositoryOwner = getArguments().getString(RepositoryTabActivity.EXTRA_OWNER);
+            shot = getArguments().getParcelable(DetailTabActivity.EXTRA_SHOT);
         }
     }
 
@@ -54,8 +53,6 @@ public class RepositoryDetailFragment extends BaseFragment {
     }
 
     private void configureUI() {
-        tvRepoName.setText(repository.getName());
-        tvDescription.setText(repository.getDescription());
     }
 
     public void onDestroyView() {
