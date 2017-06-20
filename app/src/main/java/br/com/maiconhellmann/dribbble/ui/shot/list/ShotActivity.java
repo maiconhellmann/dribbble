@@ -54,6 +54,8 @@ public class ShotActivity extends BaseActivity implements ShotView, ShotAdapter.
         mMainPresenter.loadShots();
 
         setSupportActionBar(toolbar);
+
+        setTitle(R.string.shot_list);
     }
 
     @Override
@@ -117,4 +119,5 @@ public class ShotActivity extends BaseActivity implements ShotView, ShotAdapter.
             DialogFactory.createGenericErrorDialog(this, e).show();
         }
     }
+
 }

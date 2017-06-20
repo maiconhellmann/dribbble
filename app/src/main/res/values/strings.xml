@@ -12,6 +12,8 @@
     <string name="loading">Loading…</string>
     <string name="error_loading">There was a problem loading the shots</string>
     <string name="load_more">More</string>
+    <string name="shot_detatil">Shot detail</string>
+    <string name="shot_list">Shots</string>
 
     <string-array name="array_tab_detail">
         <item>Shot</item>

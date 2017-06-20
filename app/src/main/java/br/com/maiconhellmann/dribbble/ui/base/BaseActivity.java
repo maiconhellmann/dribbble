@@ -1,12 +1,14 @@
 package br.com.maiconhellmann.dribbble.ui.base;
 
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import br.com.maiconhellmann.dribbble.R;
 import br.com.maiconhellmann.dribbble.injection.component.DaggerConfigPersistentComponent;
 import timber.log.Timber;
 import br.com.maiconhellmann.dribbble.DribbbleApplication;
@@ -67,6 +69,14 @@ public class BaseActivity extends AppCompatActivity {
 
     public ActivityComponent activityComponent() {
         return mActivityComponent;
+    }
+
+    protected void setupDysplayHomeAsUpEnable(@StringRes int title) {
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        setTitle(title);
     }
 
 }

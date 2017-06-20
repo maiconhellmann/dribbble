@@ -34,6 +34,8 @@ public class DetailTabActivity extends BaseActivity {
         setSupportActionBar(toolbar);
 
         configureUI();
+
+        setupDysplayHomeAsUpEnable(R.string.shot_detatil);
     }
 
     private void configureUI() {
@@ -79,5 +81,12 @@ public class DetailTabActivity extends BaseActivity {
         public Fragment getItem(int position) {
             return fragmentList.get(position);
         }
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
