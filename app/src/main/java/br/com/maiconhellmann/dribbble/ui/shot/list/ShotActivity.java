@@ -76,7 +76,7 @@ public class ShotActivity extends BaseActivity implements ShotView, ShotAdapter.
 
     @Override
     public void showProgressBar() {
-        btnLoadMore.setVisibility(View.GONE);
+        btnLoadMore.setVisibility(View.INVISIBLE);
         progressBar = DialogFactory.createProgressDialog(this, R.string.loading);
         progressBar.show();
     }
