@@ -3,6 +3,8 @@ package br.com.maiconhellmann.dribbble.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Shot implements Parcelable {
 
     private Integer id;
@@ -10,7 +12,10 @@ public class Shot implements Parcelable {
     private String description;
     private Integer width;
     private Integer height;
+
+    @SerializedName("views_count")
     private Integer viewsCount;
+
     private Integer likesCount;
     private Integer commentsCount;
     private Image images;

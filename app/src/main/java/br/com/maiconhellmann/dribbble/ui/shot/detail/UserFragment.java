@@ -24,9 +24,6 @@ public class UserFragment extends BaseFragment {
     @BindView(R.id.text_title)
     TextView textTitle;
 
-    @BindView(R.id.text_views)
-    TextView textViews;
-
     @BindView(R.id.text_biografia)
     TextView textBio;
 
@@ -64,8 +61,6 @@ public class UserFragment extends BaseFragment {
 
     private void configureUI() {
         try{
-            int count = shot.getViewsCount() != null ? shot.getViewsCount() : 0;
-            textViews.setText(getString(R.string.views_count, count));
             textTitle.setText(shot.getUser().getName());
 
             Glide.with(imageView.getContext())

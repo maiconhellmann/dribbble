@@ -40,22 +40,7 @@
                     android:textColor="#FFFFFF"
                     android:padding="10dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="100dp"
                     android:singleLine="true"/>
-
-                <TextView
-                    android:id="@+id/text_views"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_body"
-                    tools:text="45"
-                    android:drawableLeft="@drawable/ic_remove_red_eye_white_24dp"
-                    android:drawablePadding="15dp"
-                    android:layout_gravity="right"
-                    android:textColor="#FFFFFF"
-                    android:padding="10dp"
-                    android:gravity="center"
-                    android:layout_marginRight="10dp"/>
             </FrameLayout>
 
         </FrameLayout>
